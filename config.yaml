@@ -15,11 +15,10 @@ inbounds:
     wsSettings:
       path: /uuid-vl
   sniffing:
-    enabled: true
+    enabled: false
     destOverride:
     - http
     - tls
-    - quic
 - port: 10000
   protocol: vmess
   settings:
@@ -30,11 +29,10 @@ inbounds:
     wsSettings:
       path: /uuid-vm
   sniffing:
-    enabled: true
+    enabled: false
     destOverride:
     - http
     - tls
-    - quic
 - port: 40000
   protocol: shadowsocks
   settings:
@@ -46,11 +44,10 @@ inbounds:
     wsSettings:
       path: /uuid-ss
   sniffing:
-    enabled: true
+    enabled: false
     destOverride:
     - http
     - tls
-    - quic
 - port: 30000
   protocol: trojan
   settings:
@@ -61,11 +58,10 @@ inbounds:
     wsSettings:
       path: /uuid-tr
   sniffing:
-    enabled: true
+    enabled: false
     destOverride:
     - http
     - tls
-    - quic
 - port: 50000
   protocol: socks
   settings:
@@ -78,11 +74,10 @@ inbounds:
     wsSettings:
       path: /uuid-so
   sniffing:
-    enabled: true
+    enabled: false
     destOverride:
     - http
     - tls
-    - quic
 outbounds:
 - protocol: freedom
   tag: direct
