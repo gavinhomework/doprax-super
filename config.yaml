@@ -1,85 +1,101 @@
-log:
-  loglevel: info
-dns:
-  servers:
-  - https+local://8.8.8.8/dns-query
-inbounds:
-- port: 20000
-  protocol: vless
-  settings:
-    decryption: none
-    clients:
-    - id: uuid
-  streamSettings:
-    network: ws
-    wsSettings:
-      path: /uuid-vl
-  sniffing:
-    enabled: false
-    destOverride:
-    - http
-    - tls
-- port: 10000
-  protocol: vmess
-  settings:
-    clients:
-    - id: uuid
-  streamSettings:
-    network: ws
-    wsSettings:
-      path: /uuid-vm
-  sniffing:
-    enabled: false
-    destOverride:
-    - http
-    - tls
-- port: 40000
-  protocol: shadowsocks
-  settings:
-    password: "uuid"
-    method: chacha20-ietf-poly1305
-    ivcheck: true
-  streamSettings:
-    network: ws
-    wsSettings:
-      path: /uuid-ss
-  sniffing:
-    enabled: false
-    destOverride:
-    - http
-    - tls
-- port: 30000
-  protocol: trojan
-  settings:
-    clients:
-    - password: "uuid"
-  streamSettings:
-    network: ws
-    wsSettings:
-      path: /uuid-tr
-  sniffing:
-    enabled: false
-    destOverride:
-    - http
-    - tls
-- port: 50000
-  protocol: socks
-  settings:
-    auth: password
-    accounts:
-    - user: "uuid"
-      pass: "uuid"
-  streamSettings:
-    network: ws
-    wsSettings:
-      path: /uuid-so
-  sniffing:
-    enabled: false
-    destOverride:
-    - http
-    - tls
-outbounds:
-- protocol: freedom
-  tag: direct
-  settings:
-    domainStrategy: UseIPv4
+{
+  "log": null,
+  "routing": {
+    "rules": [
+      {
+        "inboundTag": [
+          "api"
+        ],
+        "outboundTag": "api",
+        "type": "field"
+      },
+      {
+        "ip": [
+          "geoip:private"
+        ],
+        "outboundTag": "blocked",
+        "type": "field"
+      },
+      {
+        "outboundTag": "blocked",
+        "protocol": [
+          "bittorrent"
+        ],
+        "type": "field"
+      }
+    ]
+  },
+  "dns": null,
+  "inbounds": [
+    {
+      "listen": "127.0.0.1",
+      "port": 62789,
+      "protocol": "dokodemo-door",
+      "settings": {
+        "address": "127.0.0.1"
+      },
+      "streamSettings": null,
+      "tag": "api",
+      "sniffing": null
+    },
+    {
+      "listen": "127.0.0.1",
+      "port": 38672,
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "b9d1903a-9bc1-4d5f-8044-4c65a3ef78ea",
+            "alterId": 0
+          }
+        ],
+        "disableInsecureEncryption": false
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "none",
+        "wsSettings": {
+          "path": "/b9d1903a-9bc1-4d5f-8044-4c65a3ef78ea-vm",
+          "headers": {}
+        }
+      },
+      "tag": "inbound-38672",
+      "sniffing": {
+        "enabled": false,
+        "destOverride": [
+          "http",
+          "tls"
+        ]
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "settings": {}
+    },
+    {
+      "protocol": "blackhole",
+      "settings": {},
+      "tag": "blocked"
+    }
+  ],
+  "transport": null,
+  "policy": {
+    "system": {
+      "statsInboundDownlink": true,
+      "statsInboundUplink": true
+    }
+  },
+  "api": {
+    "services": [
+      "HandlerService",
+      "LoggerService",
+      "StatsService"
+    ],
+    "tag": "api"
+  },
+  "stats": {},
+  "reverse": null,
+  "fakeDns": null
+}
