@@ -45,7 +45,7 @@
       "settings": {
         "clients": [
           {
-            "id": "b9d1903a-9bc1-4d5f-8044-4c65a3ef78ea",
+            "id": "uuid",
             "alterId": 0
           }
         ],
@@ -55,7 +55,7 @@
         "network": "ws",
         "security": "none",
         "wsSettings": {
-          "path": "/b9d1903a-9bc1-4d5f-8044-4c65a3ef78ea-vm",
+          "path": "/uuid-vm",
           "headers": {}
         }
       },
